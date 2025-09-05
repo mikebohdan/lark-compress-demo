@@ -1,0 +1,31 @@
+[project]
+name = "parser-repr"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+[build-system]
+requires = [
+    "hatchling",
+    "hatch-build-scripts", 
+    "lark==1.2.2",
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+# keep the grammar in the sdist so wheels can be rebuilt elsewhere if needed
+include = ["grammar/*.lark", "src/parser_repr/**"]
+
+[tool.hatch.build.targets.wheel]
+# ship only your package (not the raw grammar)
+packages = ["src/parser_repr",]
+exclude = ["grammar/**"]
+
+[[tool.hatch.build.hooks.build-scripts.scripts]]
+work_dir = "."
+commands = [
+  # writes the standalone parser to your package
+  "python -m lark.tools.standalone --compress grammar/calc.lark > src/parser_repr/calc.py"
+]
+artifacts = [
+  "src/parser_repr/calc.py"   # ensure it's included in the wheel
+]

@@ -1,0 +1,49 @@
+version = 1
+revision = 3
+requires-python = ">=3.11"
+
+[manifest]
+members = [
+    "calculator-fix",
+    "calculator-repr",
+    "lark-compress-demo",
+    "parser-fix",
+    "parser-repr",
+]
+
+[[package]]
+name = "calculator-fix"
+version = "0.1.0"
+source = { editable = "apps/calculator-fix" }
+dependencies = [
+    { name = "parser-fix" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "parser-fix", editable = "packages/parser-fix" }]
+
+[[package]]
+name = "calculator-repr"
+version = "0.1.0"
+source = { editable = "apps/calculator-repr" }
+dependencies = [
+    { name = "parser-repr" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "parser-repr", editable = "packages/parser-repr" }]
+
+[[package]]
+name = "lark-compress-demo"
+version = "0.1.0"
+source = { virtual = "." }
+
+[[package]]
+name = "parser-fix"
+version = "0.1.0"
+source = { editable = "packages/parser-fix" }
+
+[[package]]
+name = "parser-repr"
+version = "0.1.0"
+source = { editable = "packages/parser-repr" }
